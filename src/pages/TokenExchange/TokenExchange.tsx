@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import withLogin from '@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { TitleBox } from '@pagopa/selfcare-common-frontend';
 import { ENV } from '../../utils/env';
@@ -38,7 +38,6 @@ const TokenExchange = () => {
       {
         method: 'GET',
         credentials: 'include',
-        redirect: 'manual',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -46,12 +45,19 @@ const TokenExchange = () => {
       }
     )
       .then((response) => {
-        // eslint-disable-next-line functional/immutable-data
-        window.location.href = response.url;
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Something went wrong');
       })
-      .catch((err) => {
+      .then((data) => {
+        console.log(data);
+        // eslint-disable-next-line functional/immutable-data
+        window.location.href = data;
+      })
+      .catch((error) => {
         setError(true);
-        console.log(err);
+        console.log(error);
       })
       .finally(() => setLoading(false));
   };
@@ -69,7 +75,6 @@ const TokenExchange = () => {
         <Box px={24} my={13}>
           <TitleBox
             title={t('tokenExchangePage.title')}
-            subTitle={t('tokenExchangePage.subTitle')}
             mbTitle={1}
             mbSubTitle={4}
             variantTitle="h1"
@@ -77,7 +82,22 @@ const TokenExchange = () => {
             titleFontSize="48px"
           />
 
-          {!error && loading && <CircularProgress />}
+          {!error && loading && (
+            <Grid
+              container
+              item
+              justifyContent="center"
+              alignItems="center"
+              display="flex"
+              direction="column"
+            >
+              <Trans i18nKey="tokenExchangePage.subTitle">
+                Verrai presto reindirizzato alla pagina desiderata
+              </Trans>
+              <CircularProgress />
+            </Grid>
+          )}
+          {error && <Trans i18nKey="tokenExchangePage.error">Qualcosa è andato storto </Trans>}
         </Box>
       </Grid>
     </React.Fragment>
