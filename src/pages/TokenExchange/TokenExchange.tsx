@@ -97,7 +97,7 @@ const TokenExchange = () => {
               <CircularProgress />
             </Grid>
           )}
-          {error && <Trans i18nKey="tokenExchangePage.error">Qualcosa è andato storto </Trans>}
+          {error && <Trans i18nKey="tokenExchangePage.error"> Qualcosa è andato storto </Trans>}
         </Box>
       </Grid>
     </React.Fragment>
