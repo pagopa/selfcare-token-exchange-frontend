@@ -106,7 +106,7 @@ const TokenExchange = () => {
                     <Typography>
                       <Trans i18nKey="tokenExchangePage.error.subtitle">
                         A causa di un errore del sistema non è possibile completare <br />
-                        la procedura. Ti chiediamo di riprovare più tardi.
+                        la procedura. Ti chiediamo di riprovare più tardi
                       </Trans>
                     </Typography>
                   </Grid>
