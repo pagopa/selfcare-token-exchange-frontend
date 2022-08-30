@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, CircularProgress, Grid } from '@mui/material';
+import { Box, CircularProgress, Grid, Typography } from '@mui/material';
 import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
-import { useTranslation, Trans } from 'react-i18next';
+import { Trans } from 'react-i18next';
 import withLogin from '@pagopa/selfcare-common-frontend/decorators/withLogin';
-import { TitleBox } from '@pagopa/selfcare-common-frontend';
+import { IllusError } from '@pagopa/mui-italia';
 import { ENV } from '../../utils/env';
 
 export type AssistanceRequest = {
@@ -16,7 +16,7 @@ export type AssistanceRequest = {
 };
 
 const TokenExchange = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const token = storageTokenOps.read();
@@ -66,38 +66,47 @@ const TokenExchange = () => {
     <React.Fragment>
       <Grid
         container
-        item
         justifyContent="center"
         alignItems="center"
         display="flex"
-        sx={{ backgroundColor: 'rgb(242, 242, 242)', textAlign: 'center' }}
+        sx={{
+          backgroundColor: 'rgb(242, 242, 242)',
+          textAlign: 'center',
+          height: '76vh',
+        }}
       >
-        <Box px={24} my={13}>
-          <TitleBox
-            title={t('tokenExchangePage.title')}
-            mbTitle={1}
-            mbSubTitle={4}
-            variantTitle="h1"
-            variantSubTitle="h5"
-            titleFontSize="48px"
-          />
-
+        <Box px={24} my={13} width="100%">
           {!error && loading && (
-            <Grid
-              container
-              item
-              justifyContent="center"
-              alignItems="center"
-              display="flex"
-              direction="column"
-            >
-              <Trans i18nKey="tokenExchangePage.subTitle">
-                Verrai presto reindirizzato alla pagina desiderata
-              </Trans>
+            <Grid item xs={12} justifyContent="center" alignItems="center" display="flex">
               <CircularProgress />
             </Grid>
           )}
-          {error && <Trans i18nKey="tokenExchangePage.error">Qualcosa è andato storto </Trans>}
+          {error && (
+            <>
+              <IllusError size={60} />
+              <Grid container direction="column" key="0" mt={3}>
+                <Grid container item justifyContent="center">
+                  <Grid item xs={6}>
+                    <Typography variant="h4">
+                      <Trans i18nKey="tokenExchangePage.error.title">
+                        Qualcosa è andato storto
+                      </Trans>
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container item justifyContent="center" mb={3} mt={1}>
+                  <Grid item xs={8}>
+                    <Typography>
+                      <Trans i18nKey="tokenExchangePage.error.subtitle">
+                        A causa di un errore del sistema non è possibile completare <br />
+                        la procedura. Ti chiediamo di riprovare più tardi.
+                      </Trans>
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </>
+          )}
         </Box>
       </Grid>
     </React.Fragment>
