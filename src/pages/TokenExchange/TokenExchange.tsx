@@ -77,7 +77,14 @@ const TokenExchange = () => {
       >
         <Box px={24} my={13} width="100%">
           {!error && loading && (
-            <Grid item xs={12} justifyContent="center" alignItems="center" display="flex">
+            <Grid
+              item
+              xs={12}
+              justifyContent="center"
+              alignItems="center"
+              display="flex"
+              id="tokenExchange"
+            >
               <CircularProgress />
             </Grid>
           )}
