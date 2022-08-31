@@ -15,6 +15,7 @@ variables:
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
   # Execute agents (jobs) on latest Ubuntu version.
   vmImageNameDefault: 'ubuntu-latest'
+  NODE_OPTIONS: '--max_old_space_size=3072'
 
   basePath: token-exchange
 
@@ -184,7 +185,7 @@ stages:
 
               REACT_APP_URL_API_PARTY_PROCESS: '$(react_app_url_api_party_process)'
               REACT_APP_URL_API_DASHBOARD: '$(react_app_url_api_dashboard)'
-              
+
               REACT_APP_URL_INSTITUTION_LOGO_PREFIX: '$(react_app_url_storage)/institutions/'
 
               REACT_APP_ENABLE_ASSISTANCE: '$(react_app_enable_assistance)'
