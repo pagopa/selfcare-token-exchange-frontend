@@ -7,18 +7,19 @@ import { Provider } from 'react-redux';
 
 jest.mock('@pagopa/selfcare-common-frontend/decorators/withLogin');
 
-// const renderApp = (injectedStore?: ReturnType<typeof createStore>) => {
-//   const store = injectedStore ? injectedStore : createStore();
-//   render(
-//     <Provider store={store}>
-//       <TokenExchange />
-//     </Provider>
-//   );
-//   return { store };
-// };
+const renderApp = (injectedStore?: ReturnType<typeof createStore>) => {
+  const store = injectedStore ? injectedStore : createStore();
+  render(
+    <Provider store={store}>
+      <TokenExchange />
+    </Provider>
+  );
+  return { store };
+};
 
 test('renders the landing page', () => {
-  // const { store } = renderApp();
-  // verifyLoginMockExecution(store.getState());
-  // expect(document.getElementById('tokenExchange'));
+  const { store } = renderApp();
+  verifyLoginMockExecution(store.getState());
+
+  expect(document.getElementById('tokenExchange'));
 });
