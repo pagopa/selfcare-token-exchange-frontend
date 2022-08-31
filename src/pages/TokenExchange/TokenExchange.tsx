@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
 import { Trans } from 'react-i18next';
 import withLogin from '@pagopa/selfcare-common-frontend/decorators/withLogin';
@@ -109,6 +109,20 @@ const TokenExchange = () => {
                         la procedura. Ti chiediamo di riprovare più tardi.
                       </Trans>
                     </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container item justifyContent="center">
+                  <Grid item xs={4}>
+                    <Button
+                      onClick={() => window.location.assign(ENV.URL_FE.LANDING)}
+                      variant={'contained'}
+                    >
+                      <Typography width="100%" sx={{ color: 'primary.contrastText' }}>
+                        <Trans i18nKey="onBoardingSubProduct.genericError.homeButton">
+                          Torna alla home
+                        </Trans>
+                      </Typography>
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
