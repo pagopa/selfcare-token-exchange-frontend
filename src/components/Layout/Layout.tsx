@@ -21,6 +21,7 @@ export default function Layout({ children }: Props) {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
+        justifyContent: 'space-between',
       }}
     >
       <Header

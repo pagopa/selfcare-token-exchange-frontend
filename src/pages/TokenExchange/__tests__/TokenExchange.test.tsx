@@ -21,5 +21,5 @@ test('renders the landing page', () => {
   const { store } = renderApp();
   verifyLoginMockExecution(store.getState());
 
-  expect(screen.getByText('Token Exchange')).toBeVisible();
+  expect(document.getElementById('tokenExchange'));
 });
