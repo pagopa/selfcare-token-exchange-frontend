@@ -26,26 +26,17 @@ const TokenExchange = () => {
   useEffect(() => {
     const productId = new URLSearchParams(window.location.search).get('productId');
     const institutionId = new URLSearchParams(window.location.search).get('institutionId');
-    const uid = new URLSearchParams(window.location.search).get('uid');
-    console.log('uid', uid);
+
     if (productId && institutionId) {
-      if (uid) {
-        retrieveProductBackofficeURL(productId as string, institutionId as string, uid);
-      } else {
-        retrieveProductBackofficeURL(productId, institutionId);
-      }
+      retrieveProductBackofficeURL(productId, institutionId);
     }
   }, []);
 
-  const retrieveProductBackofficeURL = (productId: string, institutionId: string, uid?: string) => {
+  const retrieveProductBackofficeURL = (productId: string, institutionId: string) => {
+    const uuid = new URLSearchParams(window.location.search).get('uid');
     setLoading(true);
-    console.log('xx uid fetch', uid);
     fetch(
-      `${
-        ENV.URL_API.API_DASHBOARD
-      }/products/${productId}/back-office?institutionId=${institutionId}${
-        uid ? `?uid=${uid}` : ''
-      }`,
+      `${ENV.URL_API.API_DASHBOARD}/products/${productId}/back-office?institutionId=${institutionId}`,
       {
         method: 'GET',
         credentials: 'include',
@@ -64,7 +55,7 @@ const TokenExchange = () => {
       .then((data) => {
         console.log('data: ', data);
         // eslint-disable-next-line functional/immutable-data, sonarjs/no-nested-template-literals
-        window.location.href = `${data}${uid ? `?uid=${uid}` : ''}`;
+        window.location.href = `${data}${uuid ? `?uid=${uuid}` : ''}`;
       })
       .catch((error) => {
         setError(true);
