@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
-// import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
+import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
 import { Trans } from 'react-i18next';
 import withLogin from '@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { IllusError } from '@pagopa/mui-italia';
