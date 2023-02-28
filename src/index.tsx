@@ -13,10 +13,12 @@ import { MOCK_USER } from './utils/constants';
 import { ENV } from './utils/env';
 import './locale';
 
+const onSuccessEncoded = encodeURIComponent(location.pathname + location.search);
+
 // eslint-disable-next-line functional/immutable-data
 CONFIG.MOCKS.MOCK_USER = MOCK_USER;
 // eslint-disable-next-line functional/immutable-data
-CONFIG.URL_FE.LOGIN = `${ENV.URL_FE.LOGIN}?onSuccess=token-exchange`;
+CONFIG.URL_FE.LOGIN = `${ENV.URL_FE.LOGIN}?onSuccess=` + onSuccessEncoded;
 // eslint-disable-next-line functional/immutable-data
 CONFIG.URL_FE.LOGOUT = ENV.URL_FE.LOGOUT;
 // eslint-disable-next-line functional/immutable-data
