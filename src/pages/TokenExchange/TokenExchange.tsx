@@ -16,7 +16,6 @@ export type AssistanceRequest = {
 };
 
 const TokenExchange = () => {
-  // const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const token = storageTokenOps.read();
@@ -31,8 +30,19 @@ const TokenExchange = () => {
   }, []);
 
   const retrieveProductBackofficeURL = (productId: string, institutionId: string) => {
-    setLoading(true);
+    const uuid = new URLSearchParams(window.location.search).get('uuid');
 
+    const createRedirectUrl = (url: string, uuid: string | null) => {
+      if (uuid) {
+        const urlWithUuid = new URL(url);
+        urlWithUuid.searchParams.set('uuid', uuid);
+        return urlWithUuid.toString();
+      } else {
+        return url;
+      }
+    };
+
+    setLoading(true);
     fetch(
       `${ENV.URL_API.API_DASHBOARD}/products/${productId}/back-office?institutionId=${institutionId}`,
       {
@@ -50,10 +60,10 @@ const TokenExchange = () => {
         }
         throw new Error('Something went wrong');
       })
-      .then((data) => {
-        console.log(data);
-        // eslint-disable-next-line functional/immutable-data
-        window.location.href = data;
+      .then((url) => {
+        console.log('data: ', url);
+        // eslint-disable-next-line functional/immutable-data, sonarjs/no-nested-template-literals
+        window.location.href = createRedirectUrl(url, uuid);
       })
       .catch((error) => {
         setError(true);
