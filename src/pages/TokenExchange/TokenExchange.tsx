@@ -30,12 +30,12 @@ const TokenExchange = () => {
   }, []);
 
   const retrieveProductBackofficeURL = (productId: string, institutionId: string) => {
-    const uuid = new URLSearchParams(window.location.search).get('uuid');
+    const code = new URLSearchParams(window.location.search).get('code');
 
-    const createRedirectUrl = (url: string, uuid: string | null) => {
-      if (uuid) {
+    const createRedirectUrl = (url: string, code: string | null) => {
+      if (code) {
         const urlWithUuid = new URL(url);
-        urlWithUuid.searchParams.set('uuid', uuid);
+        urlWithUuid.searchParams.set('code', code);
         return urlWithUuid.toString();
       } else {
         return url;
@@ -63,7 +63,7 @@ const TokenExchange = () => {
       .then((url) => {
         console.log('data: ', url);
         // eslint-disable-next-line functional/immutable-data, sonarjs/no-nested-template-literals
-        window.location.href = createRedirectUrl(url, uuid);
+        window.location.href = createRedirectUrl(url, code);
       })
       .catch((error) => {
         setError(true);
