@@ -15,45 +15,39 @@ export type AssistanceRequest = {
   messageObject: string;
 };
 
+const appendParamInURL = (url: string, paramName: string, paramValue: string) => {
+  const urlWithHashParam = new URL(url);
+  urlWithHashParam.searchParams.set(paramName, paramValue);
+  return urlWithHashParam.toString();
+};
+
 const TokenExchange = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const token = storageTokenOps.read();
+  const productId = new URLSearchParams(window.location.search).get('productId');
+  const institutionId = new URLSearchParams(window.location.search).get('institutionId');
+  const code = new URLSearchParams(window.location.search).get('code');
+  const environment = new URLSearchParams(window.location.search).get('environment');
 
   useEffect(() => {
-    const productId = new URLSearchParams(window.location.search).get('productId');
-    const institutionId = new URLSearchParams(window.location.search).get('institutionId');
-
     if (productId && institutionId) {
       retrieveProductBackofficeURL(productId, institutionId);
     }
   }, []);
 
   const retrieveProductBackofficeURL = (productId: string, institutionId: string) => {
-    const code = new URLSearchParams(window.location.search).get('code');
-
-    const createRedirectUrl = (url: string, code: string | null) => {
-      if (code) {
-        const urlWithUuid = new URL(url);
-        urlWithUuid.searchParams.set('code', code);
-        return urlWithUuid.toString();
-      } else {
-        return url;
-      }
-    };
-
     setLoading(true);
-    fetch(
-      `${ENV.URL_API.API_DASHBOARD}/products/${productId}/back-office?institutionId=${institutionId}`,
-      {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    const environmentParam = environment ? `&environment=${environment}` : '';
+    const urlToFetch = `${ENV.URL_API.API_DASHBOARD}/products/${productId}/back-office?institutionId=${institutionId}${environmentParam}`;
+    fetch(urlToFetch, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -61,15 +55,18 @@ const TokenExchange = () => {
         throw new Error('Something went wrong');
       })
       .then((url) => {
-        console.log('data: ', url);
-        // eslint-disable-next-line functional/immutable-data, sonarjs/no-nested-template-literals
-        window.location.href = createRedirectUrl(url, code);
+        const postProcessedUrl = code ? appendParamInURL(url, 'code', code) : url;
+
+        // eslint-disable-next-line functional/immutable-data
+        window.location.href = postProcessedUrl;
       })
       .catch((error) => {
         setError(true);
-        console.log(error);
+        console.error(error);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -126,6 +123,7 @@ const TokenExchange = () => {
                     <Button
                       onClick={() => window.location.assign(ENV.URL_FE.LANDING)}
                       variant={'contained'}
+                      data-testid="go-home-btn-test"
                     >
                       <Typography width="100%" sx={{ color: 'primary.contrastText' }}>
                         <Trans i18nKey="onBoardingSubProduct.genericError.homeButton">
