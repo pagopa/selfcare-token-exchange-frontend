@@ -39,7 +39,8 @@ const TokenExchange = () => {
   const retrieveProductBackofficeURL = (productId: string, institutionId: string) => {
     setLoading(true);
     const environmentParam = environment ? `&environment=${environment}` : '';
-    const urlToFetch = `${ENV.URL_API.API_DASHBOARD}/v1/products/${productId}/back-office?institutionId=${institutionId}${environmentParam}`;
+    const apiVersion = ENV.USER.ENABLE_USER_V2 ? 'v2' : 'v1';
+    const urlToFetch = `${ENV.URL_API.API_DASHBOARD}/${apiVersion}/products/${productId}/back-office?institutionId=${institutionId}${environmentParam}`;
     fetch(urlToFetch, {
       method: 'GET',
       credentials: 'include',
