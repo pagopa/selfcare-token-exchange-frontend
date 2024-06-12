@@ -30,22 +30,19 @@ const TokenExchange = () => {
   const institutionId = new URLSearchParams(window.location.search).get('institutionId');
   const code = new URLSearchParams(window.location.search).get('code');
   const environment = new URLSearchParams(window.location.search).get('environment');
-  const lang = i18n.language;
 
   useEffect(() => {
     if (productId && institutionId) {
-      retrieveProductBackofficeURL(productId, institutionId, lang);
+      retrieveProductBackofficeURL(productId, institutionId);
     }
   }, []);
 
-  const retrieveProductBackofficeURL = (
-    productId: string,
-    institutionId: string,
-    lang?: string
-  ) => {
+  const retrieveProductBackofficeURL = (productId: string, institutionId: string) => {
     setLoading(true);
     const environmentParam = environment ? `&environment=${environment}` : '';
-    const urlToFetch = `${ENV.URL_API.API_DASHBOARD}/v2/products/${productId}/back-office?institutionId=${institutionId}${environmentParam}&lang=${lang}`;
+    const langParam = i18n.language ? `&lang=${i18n.language}` : '';
+
+    const urlToFetch = `${ENV.URL_API.API_DASHBOARD}/v2/products/${productId}/back-office?institutionId=${institutionId}${environmentParam}${langParam}`;
     fetch(urlToFetch, {
       method: 'GET',
       credentials: 'include',
