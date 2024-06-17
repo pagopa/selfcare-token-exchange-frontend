@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
-import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
-import { Trans } from 'react-i18next';
-import withLogin from '@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { IllusError } from '@pagopa/mui-italia';
+import withLogin from '@pagopa/selfcare-common-frontend/decorators/withLogin';
+import i18n from '@pagopa/selfcare-common-frontend/locale/locale-utils';
+import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
+import React, { useEffect, useState } from 'react';
+import { Trans } from 'react-i18next';
 import { ENV } from '../../utils/env';
 
 export type AssistanceRequest = {
@@ -39,8 +40,9 @@ const TokenExchange = () => {
   const retrieveProductBackofficeURL = (productId: string, institutionId: string) => {
     setLoading(true);
     const environmentParam = environment ? `&environment=${environment}` : '';
-    const apiVersion = ENV.USER.ENABLE_USER_V2 ? 'v2' : 'v1';
-    const urlToFetch = `${ENV.URL_API.API_DASHBOARD}/${apiVersion}/products/${productId}/back-office?institutionId=${institutionId}${environmentParam}`;
+    const langParam = i18n.language ? `&lang=${i18n.language}` : '';
+
+    const urlToFetch = `${ENV.URL_API.API_DASHBOARD}/v2/products/${productId}/back-office?institutionId=${institutionId}${environmentParam}${langParam}`;
     fetch(urlToFetch, {
       method: 'GET',
       credentials: 'include',
