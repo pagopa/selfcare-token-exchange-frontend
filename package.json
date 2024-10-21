@@ -12,7 +12,7 @@
     "@mui/x-data-grid-generator": "^6.19.5",
     "@pagopa/mui-italia": "^0.7.0",
     "@pagopa/selfcare-common-frontend": "^1.11.8",
-    "@pagopa/ts-commons": "^10.2.1",
+    "@pagopa/ts-commons": "^12.5.1",
     "@reduxjs/toolkit": "^1.6.2",
     "@types/lodash": "^4.17.10",
     "@types/node": "^22.7.4",
