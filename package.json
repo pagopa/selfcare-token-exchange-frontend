@@ -20,7 +20,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
     "@types/redux-logger": "^3.0.9",
-    "axios": "^0.28.0",
+    "axios": "^1.7.7",
     "core-js": "^3.39.0",
     "env-var": "^7.3.0",
     "formik": "^2.2.9",
