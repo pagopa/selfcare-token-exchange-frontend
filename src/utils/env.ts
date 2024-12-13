@@ -21,15 +21,6 @@ export const ENV = {
     API_DASHBOARD: env.get('REACT_APP_URL_API_DASHBOARD').required().asString(),
   },
 
-  API_TIMEOUT_MS: {
-    DASHBOARD: env.get('REACT_APP_API_DASHBOARD_TIMEOUT_MS').required().asInt(),
-  },
-
-  URL_INSTITUTION_LOGO: {
-    PREFIX: env.get('REACT_APP_URL_INSTITUTION_LOGO_PREFIX').required().asString(),
-    SUFFIX: env.get('REACT_APP_URL_INSTITUTION_LOGO_SUFFIX').required().asString(),
-  },
-
   ANALYTCS: {
     ENABLE: env.get('REACT_APP_ANALYTICS_ENABLE').default('false').asBool(),
     MOCK: env.get('REACT_APP_ANALYTICS_MOCK').default('false').asBool(),
