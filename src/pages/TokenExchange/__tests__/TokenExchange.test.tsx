@@ -89,6 +89,6 @@ describe('Token Exchange', function () {
     expect(goHomeBtn).toBeInTheDocument();
 
     fireEvent.click(goHomeBtn);
-    expect(window.location.assign).toBeCalledWith('http://selfcare/landing');
+    expect(window.location.assign).toBeCalledWith('http://selfcare/auth/logout');
   });
 });
