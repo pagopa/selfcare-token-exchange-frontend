@@ -25,10 +25,6 @@ export const ENV = {
     DASHBOARD: env.get('REACT_APP_API_DASHBOARD_TIMEOUT_MS').required().asInt(),
   },
 
-  USER: {
-    ENABLE_USER_V2: env.get('REACT_APP_ENABLE_USER_V2').required().asBool(),
-  },
-
   URL_INSTITUTION_LOGO: {
     PREFIX: env.get('REACT_APP_URL_INSTITUTION_LOGO_PREFIX').required().asString(),
     SUFFIX: env.get('REACT_APP_URL_INSTITUTION_LOGO_SUFFIX').required().asString(),
