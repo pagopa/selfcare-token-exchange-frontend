@@ -12,7 +12,7 @@ export const ENV = {
 
   URL_FE: {
     LOGIN: env.get('REACT_APP_URL_FE_LOGIN').required().asString(),
-    LOGOUT: env.get('REACT_APP_URL_FE_LOGOUT').required().asString(),
+    LOGOUT: env.get('REACT_APP_URL_FE_LANDING').required().asString(),
     DASHBOARD: env.get('REACT_APP_URL_FE_DASHBOARD').required().asString(),
     LANDING: env.get('REACT_APP_URL_FE_LANDING').required().asString(),
   },
