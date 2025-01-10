@@ -1,9 +1,9 @@
 import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { IllusError } from '@pagopa/mui-italia';
-import withLogin from '@pagopa/selfcare-common-frontend/decorators/withLogin';
-import i18n from '@pagopa/selfcare-common-frontend/locale/locale-utils';
-import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
-import React, { useEffect, useState } from 'react';
+import withLogin from '@pagopa/selfcare-common-frontend/lib/decorators/withLogin';
+import i18n from '@pagopa/selfcare-common-frontend/lib/locale/locale-utils';
+import { storageTokenOps } from '@pagopa/selfcare-common-frontend/lib/utils/storage';
+import { useEffect, useState } from 'react';
 import { Trans } from 'react-i18next';
 import { ENV } from '../../utils/env';
 
@@ -73,75 +73,71 @@ const TokenExchange = () => {
   };
 
   return (
-    <React.Fragment>
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        display="flex"
-        sx={{
-          backgroundColor: 'rgb(242, 242, 242)',
-          textAlign: 'center',
-          height: '76vh',
-        }}
-      >
-        <Box px={24} my={13} width="100%">
-          {!error && loading && (
-            <Grid
-              item
-              xs={12}
-              justifyContent="center"
-              alignItems="center"
-              display="flex"
-              id="tokenExchange"
-            >
-              <CircularProgress />
-            </Grid>
-          )}
-          {error && (
-            <>
-              <IllusError size={60} />
-              <Grid container direction="column" key="0" mt={3}>
-                <Grid container item justifyContent="center">
-                  <Grid item xs={6}>
-                    <Typography variant="h4">
-                      <Trans i18nKey="tokenExchangePage.error.title">
-                        Qualcosa è andato storto
-                      </Trans>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container item justifyContent="center" mb={3} mt={1}>
-                  <Grid item xs={8}>
-                    <Typography>
-                      <Trans i18nKey="tokenExchangePage.error.subtitle">
-                        A causa di un errore del sistema non è possibile completare <br />
-                        la procedura. Ti chiediamo di riprovare più tardi.
-                      </Trans>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid container item justifyContent="center">
-                  <Grid item xs={4}>
-                    <Button
-                      onClick={() => window.location.assign(ENV.URL_FE.LANDING)}
-                      variant={'contained'}
-                      data-testid="go-home-btn-test"
-                    >
-                      <Typography width="100%" sx={{ color: 'primary.contrastText' }}>
-                        <Trans i18nKey="onBoardingSubProduct.genericError.homeButton">
-                          Torna alla home
-                        </Trans>
-                      </Typography>
-                    </Button>
-                  </Grid>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      display="flex"
+      sx={{
+        backgroundColor: 'rgb(242, 242, 242)',
+        textAlign: 'center',
+        height: '76vh',
+      }}
+    >
+      <Box px={24} my={13} width="100%">
+        {!error && loading && (
+          <Grid
+            item
+            xs={12}
+            justifyContent="center"
+            alignItems="center"
+            display="flex"
+            id="tokenExchange"
+          >
+            <CircularProgress />
+          </Grid>
+        )}
+        {error && (
+          <>
+            <IllusError size={60} />
+            <Grid container direction="column" key="0" mt={3}>
+              <Grid container item justifyContent="center">
+                <Grid item xs={6}>
+                  <Typography variant="h4">
+                    <Trans i18nKey="tokenExchangePage.error.title">Qualcosa è andato storto</Trans>
+                  </Typography>
                 </Grid>
               </Grid>
-            </>
-          )}
-        </Box>
-      </Grid>
-    </React.Fragment>
+              <Grid container item justifyContent="center" mb={3} mt={1}>
+                <Grid item xs={8}>
+                  <Typography>
+                    <Trans i18nKey="tokenExchangePage.error.subtitle">
+                      A causa di un errore del sistema non è possibile completare <br />
+                      la procedura. Ti chiediamo di riprovare più tardi.
+                    </Trans>
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container item justifyContent="center">
+                <Grid item xs={4}>
+                  <Button
+                    onClick={() => window.location.assign(ENV.URL_FE.LANDING)}
+                    variant={'contained'}
+                    data-testid="go-home-btn-test"
+                  >
+                    <Typography width="100%" sx={{ color: 'primary.contrastText' }}>
+                      <Trans i18nKey="onBoardingSubProduct.genericError.homeButton">
+                        Torna alla home
+                      </Trans>
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </>
+        )}
+      </Box>
+    </Grid>
   );
 };
 

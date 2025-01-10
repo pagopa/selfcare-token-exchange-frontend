@@ -4,8 +4,9 @@ import '../../../locale';
 import { createStore } from './../../../redux/store';
 import { verifyMockExecution as verifyLoginMockExecution } from '../../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { Provider } from 'react-redux';
+import React from 'react';
 
-jest.mock('@pagopa/selfcare-common-frontend/decorators/withLogin');
+jest.mock('@pagopa/selfcare-common-frontend/lib/decorators/withLogin');
 
 beforeEach(() => {
   jest.spyOn(global, 'fetch').mockImplementation(
@@ -24,7 +25,7 @@ afterEach(() => {
 });
 
 const renderApp = (injectedStore?: ReturnType<typeof createStore>) => {
-  const store = injectedStore ? injectedStore : createStore();
+  const store = injectedStore || createStore();
   render(
     <Provider store={store}>
       <TokenExchange />
