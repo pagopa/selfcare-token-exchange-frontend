@@ -1,5 +1,5 @@
-import { ErrorBoundary, LoadingOverlay } from '@pagopa/selfcare-common-frontend';
-import UnloadEventHandler from '@pagopa/selfcare-common-frontend/components/UnloadEventHandler';
+import { ErrorBoundary, LoadingOverlay } from '@pagopa/selfcare-common-frontend/lib';
+import UnloadEventHandler from '@pagopa/selfcare-common-frontend/lib/components/UnloadEventHandler';
 import Layout from './components/Layout/Layout';
 import TokenExchange from './pages/TokenExchange/TokenExchange';
 
