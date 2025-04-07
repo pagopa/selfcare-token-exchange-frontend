@@ -2177,6 +2177,17 @@
     fp-ts "^2.12.3"
     io-ts "^2.2.18"
 
+"@pagopa/mui-italia@^1.5.3-rc.20250403154846":
+  version "1.5.3-rc.20250403154846"
+  resolved "https://registry.yarnpkg.com/@pagopa/mui-italia/-/mui-italia-1.5.3-rc.20250403154846.tgz#bac4dd2e0f5d5e5b51e46eec1ec592a3d25fec69"
+  integrity sha512-O1JYKmdlfWPyTdceZtfVD/oP5Hh7OX3AU5LTEmyrfclqEBtNNOBu7SxbPMHLksy6bMFFN2UxzHX8cHvKbJ9jpA==
+  dependencies:
+    "@fontsource/dm-mono" "^4.5.10"
+    "@fontsource/titillium-web" "^4.5.9"
+    clsx "^1.2.1"
+    fp-ts "^2.12.3"
+    io-ts "^2.2.18"
+
 "@pagopa/openapi-codegen-ts@^12.1.2":
   version "12.2.1"
   resolved "https://registry.yarnpkg.com/@pagopa/openapi-codegen-ts/-/openapi-codegen-ts-12.2.1.tgz#e2cc9cedcbb23077b4f3f80e970ebd9c55e71afe"
@@ -2192,10 +2203,10 @@
     write-yaml-file "^4.1.3"
     yargs "^15.0.1"
 
-"@pagopa/selfcare-common-frontend@^1.34.51":
-  version "1.34.51"
-  resolved "https://registry.yarnpkg.com/@pagopa/selfcare-common-frontend/-/selfcare-common-frontend-1.34.51.tgz#d6c89b8f3f977c2e8954e1d4081f34484a6aa3b4"
-  integrity sha512-herIua+pko66rULhO0ztGra66yQdXB3F2iLvU9SGQWRlp9StENtjOGXiQIUDSm7EUS8BTivKRuLmGGU0lItalw==
+"@pagopa/selfcare-common-frontend@^1.34.57":
+  version "1.34.57"
+  resolved "https://registry.yarnpkg.com/@pagopa/selfcare-common-frontend/-/selfcare-common-frontend-1.34.57.tgz#dc29f54cb59fe9a7c1ecfc66c3069672f50e58e4"
+  integrity sha512-RO1uW3ESQAihjU4yBxwZSlhkZ4COsiSUPPob3gd2TPl0un13GqFaAfh2yxz+z0WRvX61PEcxyB8alhQj7wfqkw==
   dependencies:
     "@emotion/react" "^11.11.1"
     "@emotion/styled" "^11.11.0"
@@ -2203,7 +2214,7 @@
     "@mui/lab" "^5.0.0-alpha.137"
     "@mui/material" "^5.14.1"
     "@mui/system" "^5.14.1"
-    "@pagopa/mui-italia" "^1.5.0"
+    "@pagopa/mui-italia" "^1.5.3-rc.20250403154846"
     "@pagopa/ts-commons" "^13.1.2"
     "@reduxjs/toolkit" "^1.6.2"
     async "3.2.4"
