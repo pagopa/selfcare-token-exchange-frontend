@@ -12,6 +12,7 @@ import { store } from './redux/store';
 import { MOCK_USER } from './utils/constants';
 import { ENV } from './utils/env';
 import './locale';
+import './consentAndAnalyticsConfiguration.ts';
 
 const onSuccessEncoded = encodeURIComponent(location.pathname + location.search);
 
@@ -23,7 +24,7 @@ CONFIG.URL_FE.LOGIN = `${ENV.URL_FE.LOGIN}?onSuccess=` + onSuccessEncoded;
 CONFIG.URL_FE.LOGOUT = ENV.URL_FE.LOGOUT;
 // eslint-disable-next-line functional/immutable-data
 CONFIG.URL_FE.ASSISTANCE = '/assistance';
-import './consentAndAnalyticsConfiguration.ts';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

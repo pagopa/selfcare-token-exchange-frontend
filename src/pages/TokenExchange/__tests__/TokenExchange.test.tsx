@@ -59,14 +59,14 @@ describe('Token Exchange', function () {
     expect(window.location.href).toContain('/ui#id=jwtToken');
   });
 
-  test('Input institutionId, productId, environment and code', async () => {
+  test('Input institutionId, productId, environment and redirectUrl', async () => {
     const url =
-      'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo&code=cod42';
+      'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo&redirectUrl=cod42';
 
     await waitFor(() => (window.location.href = url));
     await waitFor(() => renderApp());
 
-    expect(window.location.href).toContain('/ui?code=cod42#id=jwtToken');
+    expect(window.location.href).toContain('/ui?redirectUrl=cod42#id=jwtToken');
   });
 
   test('Throw error and click on back button', async () => {
@@ -82,7 +82,7 @@ describe('Token Exchange', function () {
     ) as jest.Mock;
 
     const url =
-      'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo&code=cod42';
+      'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo&redirectUrl=cod42';
     await waitFor(() => (window.location.href = url));
     await waitFor(() => renderApp());
 

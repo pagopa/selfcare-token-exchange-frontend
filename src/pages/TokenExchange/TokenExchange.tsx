@@ -28,7 +28,7 @@ const TokenExchange = () => {
   const token = storageTokenOps.read();
   const productId = new URLSearchParams(window.location.search).get('productId');
   const institutionId = new URLSearchParams(window.location.search).get('institutionId');
-  const code = new URLSearchParams(window.location.search).get('code');
+  const redirectUrl = new URLSearchParams(window.location.search).get('redirectUrl');
   const environment = new URLSearchParams(window.location.search).get('environment');
 
   useEffect(() => {
@@ -58,7 +58,9 @@ const TokenExchange = () => {
         throw new Error('Something went wrong');
       })
       .then((url) => {
-        const postProcessedUrl = code ? appendParamInURL(url, 'code', code) : url;
+        const postProcessedUrl = redirectUrl
+          ? appendParamInURL(url, 'redirectUrl', redirectUrl)
+          : url;
 
         // eslint-disable-next-line functional/immutable-data
         window.location.href = postProcessedUrl;
