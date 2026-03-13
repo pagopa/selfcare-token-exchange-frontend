@@ -25,19 +25,36 @@ on:
 
 
 jobs:
-  release_and_deploy:
-    uses: pagopa/selfcare-commons/.github/workflows/call_release_cdn.yml@main
+  release_and_deploy_dev_frontdoor:
+    uses: pagopa/selfcare-commons/.github/workflows/call_release_cdn_vite_frontdoor.yml@main
     name: "Release [${{ inputs.env != null && inputs.env || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}]"
+    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.env == 'dev') || (github.event_name == 'push' && github.ref_name == 'main') }}
     secrets: inherit
     with:
       environment: ${{ inputs.env != null && inputs.env || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}
       file_environment: ${{ format('fe_{0}.env', (inputs.env != null && inputs.env || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev')) }}
-      storage_account_name: "checkoutsa"
+      storage_account_name: weuarcheckoutst01
+      profile_name: weu-ar-checkout-afd-01
+      endpoint_name: weu-ar-checkout-fde-01
+      resource_group_name: checkout-fe-rg
+      blob_container_name: $web
+      base_path: token-exchange
+
+  release_and_deploy:
+    uses: pagopa/selfcare-commons/.github/workflows/call_release_cdn_vite_cdn.yml@main
+    name: "Release [${{ inputs.env != null && inputs.env || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}]"
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.env == 'uat' || inputs.env == 'prod')) || (github.event_name == 'push' && startsWith(github.ref_name, 'releases/')) }}
+    secrets: inherit
+    with:
+      environment: ${{ inputs.env != null && inputs.env || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}
+      file_environment: ${{ format('fe_{0}.env', (inputs.env != null && inputs.env || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev')) }}
+      storage_account_name: 'checkoutsa'
       profile_name: checkout-cdn-profile
       endpoint_name: checkout-cdn-endpoint
       resource_group_name: checkout-fe-rg
-      blob_container_name: "$web"
+      blob_container_name: $web
       base_path: token-exchange
+
 
   promote_release:
     name: 'Promote prerelase release'
