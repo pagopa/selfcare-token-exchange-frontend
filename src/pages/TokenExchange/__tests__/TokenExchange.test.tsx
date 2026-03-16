@@ -1,34 +1,40 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import TokenExchange from '../TokenExchange';
-import '../../../locale';
-import { createStore } from './../../../redux/store';
-import { verifyMockExecution as verifyLoginMockExecution } from '../../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { Provider } from 'react-redux';
-import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { verifyMockExecution as verifyLoginMockExecution } from '../../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
+import '../../../locale';
+import TokenExchange from '../TokenExchange';
+import { createStore } from './../../../redux/store';
 
-jest.mock('@pagopa/selfcare-common-frontend/lib/decorators/withLogin');
+vi.mock('@pagopa/selfcare-common-frontend/lib/decorators/withLogin', () =>
+  import('../../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin')
+);
+
 
 beforeEach(() => {
-  jest.spyOn(global, 'fetch').mockImplementation(
-    jest.fn(() =>
+  vi.spyOn(globalThis, 'fetch').mockImplementation(
+    vi.fn(() =>
       Promise.resolve({
         status: 200,
         ok: true,
         json: () => Promise.resolve('https://backofficeURL.it/ui#id=jwtToken'),
       })
-    ) as jest.Mock
+    ) as any
   );
 });
 
 afterEach(() => {
-  jest.restoreAllMocks();
+  vi.restoreAllMocks();
 });
+
 
 const renderApp = (injectedStore?: ReturnType<typeof createStore>) => {
   const store = injectedStore || createStore();
   render(
     <Provider store={store}>
-      <TokenExchange />
+      <MemoryRouter>
+        <TokenExchange />
+      </MemoryRouter>
     </Provider>
   );
   return { store };
@@ -39,12 +45,13 @@ describe('Token Exchange', function () {
     let store;
     const url = 'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx';
 
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(globalThis, 'location', {
       value: new URL(url),
     });
 
     await waitFor(() => ({ store } = renderApp()));
-    verifyLoginMockExecution(store.getState());
+
+    verifyLoginMockExecution(store!.getState());
 
     expect(document.getElementById('tokenExchange'));
   });
@@ -53,43 +60,43 @@ describe('Token Exchange', function () {
     const url =
       'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo';
 
-    await waitFor(() => (window.location.href = url));
+    await waitFor(() => (globalThis.location.href = url));
     await waitFor(() => renderApp());
 
-    expect(window.location.href).toContain('/ui#id=jwtToken');
+    expect(globalThis.location.href).toContain('/ui#id=jwtToken');
   });
 
   test('Input institutionId, productId, environment and redirectUrl', async () => {
     const url =
       'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo&redirectUrl=cod42';
 
-    await waitFor(() => (window.location.href = url));
+    await waitFor(() => (globalThis.location.href = url));
     await waitFor(() => renderApp());
 
-    expect(window.location.href).toContain('/ui?redirectUrl=cod42#id=jwtToken');
+    expect(globalThis.location.href).toContain('/ui?redirectUrl=cod42#id=jwtToken');
   });
 
   test('Throw error and click on back button', async () => {
-    Object.defineProperty(window.location, 'assign', {
+    Object.defineProperty(globalThis.location, 'assign', {
       configurable: true,
-      value: jest.fn(),
+      value: vi.fn(),
     });
-    global.fetch = jest.fn(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         status: 500,
         ok: false,
       })
-    ) as jest.Mock;
+    ) as any;
 
     const url =
       'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo&redirectUrl=cod42';
-    await waitFor(() => (window.location.href = url));
+    await waitFor(() => (globalThis.location.href = url));
     await waitFor(() => renderApp());
 
     const goHomeBtn = await screen.findByTestId('go-home-btn-test');
     expect(goHomeBtn).toBeInTheDocument();
 
     fireEvent.click(goHomeBtn);
-    expect(window.location.assign).toBeCalledWith('http://selfcare/auth/logout');
+    expect(globalThis.location.assign).toBeCalledWith('http://selfcare/auth/logout');
   });
 });

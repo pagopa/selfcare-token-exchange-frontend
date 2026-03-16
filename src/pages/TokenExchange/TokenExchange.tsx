@@ -26,10 +26,10 @@ const TokenExchange = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const token = storageTokenOps.read();
-  const productId = new URLSearchParams(window.location.search).get('productId');
-  const institutionId = new URLSearchParams(window.location.search).get('institutionId');
-  const redirectUrl = new URLSearchParams(window.location.search).get('redirectUrl');
-  const environment = new URLSearchParams(window.location.search).get('environment');
+  const productId = new URLSearchParams(globalThis.location.search).get('productId');
+  const institutionId = new URLSearchParams(globalThis.location.search).get('institutionId');
+  const redirectUrl = new URLSearchParams(globalThis.location.search).get('redirectUrl');
+  const environment = new URLSearchParams(globalThis.location.search).get('environment');
 
   useEffect(() => {
     if (productId && institutionId) {
@@ -63,7 +63,7 @@ const TokenExchange = () => {
           : url;
 
         // eslint-disable-next-line functional/immutable-data
-        window.location.href = postProcessedUrl;
+        globalThis.location.href = postProcessedUrl;
       })
       .catch((error) => {
         setError(true);
@@ -123,7 +123,7 @@ const TokenExchange = () => {
               <Grid container item justifyContent="center">
                 <Grid item xs={4}>
                   <Button
-                    onClick={() => window.location.assign(ENV.URL_FE.LANDING)}
+                    onClick={() => globalThis.location.assign(ENV.URL_FE.LANDING)}
                     variant={'contained'}
                     data-testid="go-home-btn-test"
                   >

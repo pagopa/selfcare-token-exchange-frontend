@@ -1,18 +1,19 @@
-import '@pagopa/selfcare-common-frontend/lib/common-polyfill';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { theme } from '@pagopa/mui-italia/theme';
 import '@pagopa/selfcare-common-frontend/index.css';
+import '@pagopa/selfcare-common-frontend/lib/common-polyfill';
+import { CONFIG } from '@pagopa/selfcare-common-frontend/lib/config/env';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { theme } from '@pagopa/mui-italia/dist/theme/theme';
-import { CONFIG } from '@pagopa/selfcare-common-frontend/lib/config/env';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import './consentAndAnalyticsConfiguration.ts';
+import './locale';
 import { store } from './redux/store';
 import { MOCK_USER } from './utils/constants';
 import { ENV } from './utils/env';
-import './locale';
-import './consentAndAnalyticsConfiguration.ts';
 
 const onSuccessEncoded = encodeURIComponent(location.pathname + location.search);
 
@@ -31,14 +32,11 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
+        <BrowserRouter basename="/token-exchange">
+          <CssBaseline />
+          <App />
+        </BrowserRouter>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
