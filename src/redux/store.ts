@@ -6,7 +6,6 @@ import { LOG_REDUX_ACTIONS } from '../utils/constants';
 
 const additionalMiddlewares: Array<Middleware> = LOG_REDUX_ACTIONS ? [logger as Middleware] : [];
 
-
 export const createStore = () =>
   configureStore({
     reducer: {
@@ -14,11 +13,8 @@ export const createStore = () =>
       appState: appStateReducer,
     },
     middleware: (getDefaultMiddleware) =>
-      additionalMiddlewares.reduce(
-        (array, middleware) =>
-          middleware ? array.concat(middleware) : array,
-        getDefaultMiddleware({ serializableCheck: false }) as Array<Middleware>
-      ),
+      // Use the spread operator inside .concat()
+      getDefaultMiddleware({ serializableCheck: false }).concat(...additionalMiddlewares),
   });
 
 export const store = createStore();

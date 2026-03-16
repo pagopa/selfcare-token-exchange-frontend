@@ -12,7 +12,7 @@ vi.mock('@pagopa/selfcare-common-frontend/lib/decorators/withLogin', () =>
 
 
 beforeEach(() => {
-  vi.spyOn(global, 'fetch').mockImplementation(
+  vi.spyOn(globalThis, 'fetch').mockImplementation(
     vi.fn(() =>
       Promise.resolve({
         status: 200,
@@ -45,14 +45,13 @@ describe('Token Exchange', function () {
     let store;
     const url = 'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx';
 
-    Object.defineProperty(window, 'location', {
+    Object.defineProperty(globalThis, 'location', {
       value: new URL(url),
     });
 
     await waitFor(() => ({ store } = renderApp()));
-    if (store) {
-      verifyLoginMockExecution(store.getState());
-    }
+
+    verifyLoginMockExecution(store!.getState());
 
     expect(document.getElementById('tokenExchange'));
   });
@@ -61,28 +60,28 @@ describe('Token Exchange', function () {
     const url =
       'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo';
 
-    await waitFor(() => (window.location.href = url));
+    await waitFor(() => (globalThis.location.href = url));
     await waitFor(() => renderApp());
 
-    expect(window.location.href).toContain('/ui#id=jwtToken');
+    expect(globalThis.location.href).toContain('/ui#id=jwtToken');
   });
 
   test('Input institutionId, productId, environment and redirectUrl', async () => {
     const url =
       'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo&redirectUrl=cod42';
 
-    await waitFor(() => (window.location.href = url));
+    await waitFor(() => (globalThis.location.href = url));
     await waitFor(() => renderApp());
 
-    expect(window.location.href).toContain('/ui?redirectUrl=cod42#id=jwtToken');
+    expect(globalThis.location.href).toContain('/ui?redirectUrl=cod42#id=jwtToken');
   });
 
   test('Throw error and click on back button', async () => {
-    Object.defineProperty(window.location, 'assign', {
+    Object.defineProperty(globalThis.location, 'assign', {
       configurable: true,
       value: vi.fn(),
     });
-    global.fetch = vi.fn(() =>
+    globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         status: 500,
         ok: false,
@@ -91,13 +90,13 @@ describe('Token Exchange', function () {
 
     const url =
       'http://dummy.com/token-exchange?institutionId=123&productId=prod-xxx&environment=Collaudo&redirectUrl=cod42';
-    await waitFor(() => (window.location.href = url));
+    await waitFor(() => (globalThis.location.href = url));
     await waitFor(() => renderApp());
 
     const goHomeBtn = await screen.findByTestId('go-home-btn-test');
     expect(goHomeBtn).toBeInTheDocument();
 
     fireEvent.click(goHomeBtn);
-    expect(window.location.assign).toBeCalledWith('http://selfcare/auth/logout');
+    expect(globalThis.location.assign).toBeCalledWith('http://selfcare/auth/logout');
   });
 });
