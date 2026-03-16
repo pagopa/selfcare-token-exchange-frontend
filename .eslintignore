@@ -2,6 +2,6 @@ locales/locales.ts
 **/__tests__/**
 .eslintrc.js
 definitions/*
-src/react-app-env.d.ts
+src/vite-env.d.ts
 Dangerfile.ts
 **/generated/**
