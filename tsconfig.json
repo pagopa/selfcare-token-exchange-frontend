@@ -17,6 +17,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
     "preserveConstEnums": true,
