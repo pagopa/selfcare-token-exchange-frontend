@@ -24,10 +24,9 @@ on:
         - prod
 
 jobs:
-  release_and_deploy_cdn:
+  release_and_deploy:
     uses: pagopa/selfcare-commons/.github/workflows/call_release_cdn_vite_cdn.yml@main
     name: "Release [${{ (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}]"
-    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.env == 'uat' || inputs.env == 'prod')) || (github.event_name == 'push' && startsWith(github.ref_name, 'releases/')) }}
     secrets: inherit
     with:
       environment: ${{ (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}
