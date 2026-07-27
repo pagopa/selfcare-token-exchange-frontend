@@ -24,21 +24,6 @@ on:
         - prod
 
 jobs:
-  release_and_deploy_dev_frontdoor:
-    uses: pagopa/selfcare-commons/.github/workflows/call_release_cdn_vite_frontdoor.yml@main
-    name: "Release [${{ (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}]"
-    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.env == 'dev') || (github.event_name == 'push' && github.ref_name == 'main') }}
-    secrets: inherit
-    with:
-      environment: ${{ (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}
-      file_environment: ${{ format('fe_{0}_pnpg.env', (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev') }}
-      storage_account_name: weupnpgcheckoutst01
-      profile_name: weu-pnpg-checkout-afd-01
-      endpoint_name: weu-pnpg-checkout-fde-01
-      resource_group_name: weu-pnpg-checkout-fe-rg
-      blob_container_name: $web
-      base_path: token-exchange
-
   release_and_deploy_cdn:
     uses: pagopa/selfcare-commons/.github/workflows/call_release_cdn_vite_cdn.yml@main
     name: "Release [${{ (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}]"
@@ -47,9 +32,9 @@ jobs:
     with:
       environment: ${{ (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}
       file_environment: ${{ format('fe_{0}_pnpg.env', (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev') }}
-      storage_account_name: weupnpgcheckoutsa
-      profile_name: weu-pnpg-checkout-cdn-profile
-      endpoint_name: weu-pnpg-checkout-cdn-endpoint
+      storage_account_name: weupnpgcheckoutst01
+      profile_name: weu-pnpg-checkout-afd-01
+      endpoint_name: weu-pnpg-checkout-fde-01
       resource_group_name: weu-pnpg-checkout-fe-rg
       blob_container_name: $web
       base_path: token-exchange
