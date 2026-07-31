@@ -1,7 +1,6 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from '@pagopa/mui-italia/theme';
 import '@pagopa/selfcare-common-frontend/index.css';
-import '@pagopa/selfcare-common-frontend/lib/common-polyfill';
 import { CONFIG } from '@pagopa/selfcare-common-frontend/lib/config/env';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
