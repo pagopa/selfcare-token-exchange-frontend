@@ -67,7 +67,7 @@
     "vite-plugin-css-injected-by-js": "^3.5.2",
     "vite-plugin-html": "^3.2.2",
     "vite-tsconfig-paths": "^6.1.0",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "resolutions": {
     "react-redux": "^8.0.0",
