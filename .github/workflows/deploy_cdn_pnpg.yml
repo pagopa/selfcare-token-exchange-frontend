@@ -25,7 +25,7 @@ on:
 
 jobs:
   release_and_deploy:
-    uses: pagopa/selfcare-commons/.github/workflows/call_release_cdn_vite_cdn.yml@main
+    uses: pagopa/selfcare-commons/.github/workflows/call_release_cdn_vite_cdn.yml@efdc1a6deca2f704d6046a7f3adaa0afc2515f7a # main
     name: "Release [${{ (github.event_name == 'workflow_dispatch' && inputs.env) || (startsWith(github.ref_name, 'releases/') && 'uat') || 'dev' }}]"
     secrets: inherit
     with:
