@@ -31,6 +31,7 @@ jobs:
         with:
           version_bump: ${{ inputs.version-bump }}
           github_path_token: ${{ secrets.GH_PAT_VARIABLES }}
+          repository_name: ${{ github.repository }}
 
       - name: Trigger release and Deploy on CDN
         run: |
