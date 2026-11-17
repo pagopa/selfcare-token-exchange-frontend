@@ -1,10 +1,11 @@
 {
-  "name": "pagopa interop",
-  "short_name": "pagopa interop",
-  "start_url": "/",
+  "name": "Area Riservata - Token Exchange",
+  "short_name": "Token Exchange",
+  "start_url": "/token-exchange",
+  "scope": "/token-exchange",
   "background_color": "#FFFFFF",
   "theme_color": "#00a1b0",
-  "display": "minimal-ui",
+  "display": "browser",
   "icons": [
     {
       "src": "icons/icon-48x48.png",
