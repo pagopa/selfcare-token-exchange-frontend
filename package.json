@@ -37,7 +37,7 @@
     "generate:api-b4f-dashboard": "yarn run clean:api-b4f-dashboard && mkdirp openApi/generated && api-spec-converter --from=openapi_3 --to=swagger_2 openApi/dashboard-api-docs.json > openApi/generated/dashboard-swagger20.json && node openApi/scripts/api-b4f-dashboard_fixPreGen.js && node ./node_modules/@pagopa/selfcare-common-frontend/utils/fixSwagger20ArraySchemaDef.js openApi/generated/dashboard-swagger20.json && gen-api-models --api-spec openApi/generated/dashboard-swagger20.json --out-dir src/api/generated/b4f-dashboard --no-strict --request-types --response-decoders --client && node openApi/scripts/api-b4f-dashboard_fixPostGen.js"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "14",
     "@testing-library/user-event": "^14.0.4",
     "@types/lodash": "^4.17.13",
